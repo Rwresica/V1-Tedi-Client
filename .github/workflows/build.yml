@@ -1,7 +1,23 @@
-cd path\to\extracted\folder
-git init
-git add .
-git commit -m "Tedi Client"
-git branch -M main
-git remote add origin https://github.com/YOUR_NAME/tedi-client.git
-git push -u origin main
+name: Build Tedi
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.2.0
+      - name: Unzip and build
+        run: |
+          unzip -o Tedi-Client.zip -d project
+          cd project
+          gradle build --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Tedi-Client-JAR
+          path: project/build/libs/*.jar
