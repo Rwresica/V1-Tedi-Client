@@ -1,0 +1,7 @@
+cd path\to\extracted\folder
+git init
+git add .
+git commit -m "Tedi Client"
+git branch -M main
+git remote add origin https://github.com/YOUR_NAME/tedi-client.git
+git push -u origin main
