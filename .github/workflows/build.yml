@@ -14,7 +14,7 @@ jobs:
           gradle-version: 9.2.0
       - name: Unzip and build
         run: |
-          unzip -o Tedi-Client.zip -d project
+          unzip -o "$(ls *.zip | head -n1)" -d project
           cd project
           gradle build --no-daemon
       - uses: actions/upload-artifact@v4
